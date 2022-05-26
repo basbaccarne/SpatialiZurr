@@ -13,6 +13,11 @@ public class materialcolor : MonoBehaviour
     public float xPos;
     public float yPos;
     public GameObject cube;
+    public Material material1;
+    public Material material2;
+    public Material material3;
+    public Material material4;
+    public Material material5;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,38 +31,30 @@ public class materialcolor : MonoBehaviour
         xPos = cube.transform.position.x;
         yPos = cube.transform.position.y;
 
-        if (Input.GetKey(KeyCode.A))
+        if (xPos<0.2 && xPos>0)
         {
-            if (aFloat < 1)
-            {
-                aFloat += 0.01f;
-            }
+            myRenderer.material = material1;
         }
 
-        if (Input.GetKey(KeyCode.R))
+        if (xPos < 0.4 && xPos > 0.2)
         {
-            if (rFloat < 1)
-            {
-                rFloat += 0.01f;
-            }
+            myRenderer.material = material2;
         }
 
-        if (Input.GetKey(KeyCode.G))
+        if (xPos < 0.6 && xPos > 0.4)
         {
-            if (gFloat < 1)
-            {
-                gFloat += 0.01f;
-            }
+            myRenderer.material = material3;
         }
 
-        if (Input.GetKey(KeyCode.B))
+        if (xPos < 0.8 && xPos > 0.6)
         {
-            if (bFloat < 1)
-            {
-                bFloat += 0.01f;
-            }
+            myRenderer.material = material4;
         }
-        myColor = new Color(xPos, yPos, bFloat, aFloat);
-        myRenderer.material.color = myColor;
+
+        if (xPos < 1 && xPos > 0.8)
+        {
+            myRenderer.material = material5;
+        }
+
     }
 }
