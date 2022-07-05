@@ -3,13 +3,8 @@ Inspired by https://www.instructables.com/4-Wheel-Robot-Made-With-Arduino-Contro
 
 ### Materials
 * Arduino (Uno)
-* Breadboard - OK
-* Chassis - dim = 60 x 60 cm
-* 4 Motor Mounts - L beugels
-* Nuts & bolts
-* 4 DC Motors
-* 4 Wheels - OK
-* Motor Driver
-* DC Terminal Block
-* Battery - OK
-* Jumper Cables
+* Breadboard
+* Chassis - dim = 60 x 60 cm (see attach)
+* KS0324 Keyestudio Motor Wheel Kit for Smart Car
+* ICQUANZX L298N
+* GTIWUNG 4 X 1.5V 6V AA-battery holder
