@@ -12,7 +12,10 @@ Nog niet geautomatiseerd
 
 # Parts of the digital thing
 ## Stitcher
-Nog niet geautimatiseerd
+Nog niet geautomatiseerd
+
+1) Photos renaming using python: https://www.youtube.com/watch?v=4HU5DiGD4lY
+2) Photos in the right place spawnen: C# code optimisen.
 
 # Product roadmap
 ## Stage 1: manual test
