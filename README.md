@@ -9,6 +9,7 @@ A scanning robot with a 360 cam to capture and map 3D/360 spaces for VR scenes
 ## Driving the wheel base (Arduino)
 * We're using an Arduino with mechanum wheels to drive the wheel base
 * The wheel base moves in increments and lines to 'sample' the space
+* [This is the components list](4WD_base.md)
 * [This is the Arduino script](https://github.com/basbaccarne/SpatialiZurr/blob/main/driver/arduino_TT_motor_with_L298N.INO)
 * [Snapshot current hardware](https://github.com/basbaccarne/SpatialiZurr/blob/main/driver/prototype%20wiring.jpg)
 * Status: the TT motors we used are not heavy enough
