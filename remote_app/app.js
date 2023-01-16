@@ -1,16 +1,23 @@
+// More information
+// https://freshman.tech/learn-node/
+
 // modules
 const http = require('http');
 const mqtt = require('mqtt')
+const express = require('express');
+const pug = require('pug');
+
+const app = express();
+app.set('view engine', 'pug');
 
 // server settings
-const hostname = '127.0.0.1';
-const port = 3000;
+const server = app.listen(7000, () => {
+  console.log(`This awesome app is running on port ${server.address().port}`);
+});
 
-// server content
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
+// server content (get index.pug in the views folder)
+app.get('/', (req, res) => {
+  res.render('index');
 });
 
 // Create a new MQTT client instance, and connect to the Shiftr.io broker:
@@ -32,9 +39,4 @@ client.publish('robotconrol', 'Hello, MQTT!', function (err) {
   if (!err) {
     console.log('message sent');
   }
-});
-
-// sun the server
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
 });
