@@ -5,3 +5,6 @@ https://www.thomaslaurenson.com/blog/2018-07-10/mqtt-web-app-using-javascript-an
 
 our website:
 http://spatializur.jamiljoundi.be/
+
+MQTT broker:
+https://shiftr.io/
