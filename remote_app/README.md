@@ -10,8 +10,8 @@ MQTT broker:
 https://shiftr.io/
 
 Credentials:
-https://spatializurr.cloud.shiftr.io/
-mtoken secret / pass qtt://spatializurr:fJWgFP2u8chjYKCB@spatializurr.cloud.shiftr.io
-host spatializurr.cloud.shiftr.io
-port 1883
-user spatializurr 
+* https://spatializurr.cloud.shiftr.io/
+* mtoken secret / pass qtt://spatializurr:fJWgFP2u8chjYKCB@spatializurr.cloud.shiftr.io
+* host spatializurr.cloud.shiftr.io
+* port 1883
+* user spatializurr 
