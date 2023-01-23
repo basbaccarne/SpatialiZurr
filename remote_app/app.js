@@ -20,9 +20,11 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+
+
 // Create a new MQTT client instance, and connect to the Shiftr.io broker:
 var client = mqtt.connect('mqtt://spatializurr:fJWgFP2u8chjYKCB@spatializurr.cloud.shiftr.io', {
-  clientId: 'spatializurr'
+  clientId: 'spatializurr companion app'
 });
 
 // Subscribe to a topic and define a callback function to handle incoming messages:
@@ -34,8 +36,8 @@ client.subscribe('robotconrol', function (err) {
   }
 });
 
-// Send a message to the topic:
-client.publish('robotconrol', 'Hello, MQTT!', function (err) {
+// Send a message to the topic (in this test example width;length;resolution
+client.publish('robotconrol', '3.3;6.1;2', function (err) {
   if (!err) {
     console.log('message sent');
   }
