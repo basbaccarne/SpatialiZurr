@@ -36,8 +36,8 @@ client.subscribe('robotconrol', function (err) {
   }
 });
 
-// Send a message to the topic (in this test example width;length;resolution
-client.publish('robotconrol', '3.3;6.1;2', function (err) {
+// Send a message to the topic (in this test example width;length;resolution;status)
+client.publish('robotconrol', '3.3;6.1;2;1', function (err) {
   if (!err) {
     console.log('message sent');
   }
