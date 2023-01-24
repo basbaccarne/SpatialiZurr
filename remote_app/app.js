@@ -3,24 +3,15 @@
 
 // modules
 const http = require('http');
-const mqtt = require('mqtt')
+const mqtt = require('mqtt');
 const express = require('express');
-const pug = require('pug');
 
+
+// server setting & set-up connection
 const app = express();
-app.set('view engine', 'pug');
-
-// server settings
 const server = app.listen(7000, () => {
   console.log(`This awesome app is running on port ${server.address().port}`);
 });
-
-// server content (get index.pug in the views folder)
-app.get('/', (req, res) => {
-  res.render('index');
-});
-
-
 
 // Create a new MQTT client instance, and connect to the Shiftr.io broker:
 var client = mqtt.connect('mqtt://spatializurr:fJWgFP2u8chjYKCB@spatializurr.cloud.shiftr.io', {
@@ -28,17 +19,18 @@ var client = mqtt.connect('mqtt://spatializurr:fJWgFP2u8chjYKCB@spatializurr.clo
 });
 
 // Subscribe to a topic and define a callback function to handle incoming messages:
-client.subscribe('robotconrol', function (err) {
+const topic = 'robotcontrol';
+client.subscribe(topic, function (err) {
   if (!err) {
     client.on('message', function (topic, message, packet) {
       console.log(message.toString());
+      console.log('subscribed to ' + topic);
     });
   }
 });
 
-// Send a message to the topic (in this test example width;length;resolution;status)
-client.publish('robotconrol', '3.3;6.1;2;1', function (err) {
-  if (!err) {
-    console.log('message sent');
-  }
-});
+// Send messages to the topic
+client.publish(topic+'/width', '3.3', function (err) {});
+client.publish(topic+'/depth', '2', function (err) {});
+client.publish(topic+'/resulution', '1', function (err) {});
+client.publish(topic+'/status', '1', function (err) {});
