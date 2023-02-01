@@ -21,7 +21,7 @@ const char topic[]  = "robotcontrol";
 // declare variable for the delay
 unsigned long previousMillis = 0;
 
-// declare variable to story the incoming payload
+// declare variable to store the incoming payload
 String payload;
 
 void setup() {
