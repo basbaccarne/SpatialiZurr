@@ -38,6 +38,19 @@ int lanes;
 // motor delay (between steps)
 int motordelay = 1000;
 
+// Motor 1: right-front & left-back are on unit 1 (speed controlled by enA) > IN1 & IN2 connected to digital 2 & 3
+int motor1pin1 = 2;
+int motor1pin2 = 3;
+// Motor 2: left-front & right-back are on unit 2 (speed controlled by enB) > IN3 & IN4 connected to digital 4 & 5
+int motor2pin1 = 4;
+int motor2pin2 = 5;
+// Speed controls are on digital 9 & digital 10
+int enA = 9;
+int enB = 10;
+
+// Variables to control delay & speed
+int speed = 255;  // 0 = off and 255 = max speed
+
 void setup() {
   Serial.begin(9600);
 
@@ -76,12 +89,24 @@ void setup() {
   // set the message receive callback function:
   // Trigger the 'onMqttMessage' function when mqttClient.poll() (in the loop function) detects a message
   mqttClient.onMessage(onMqttMessage);
+
+  // set the motor control pins as output
+  pinMode(motor1pin1, OUTPUT);
+  pinMode(motor1pin2, OUTPUT);
+  pinMode(motor2pin1, OUTPUT);
+  pinMode(motor2pin2, OUTPUT);
+  pinMode(enA, OUTPUT);
+  pinMode(enB, OUTPUT);
 }
 
 void loop() {
   // call poll() regularly to allow the library to send MQTT keep alives which
   // avoids being disconnected by the broker
   mqttClient.poll();
+
+  // set the speed of the motors
+  analogWrite(enA, speed);
+  analogWrite(enB, speed);
 }
 
 // function that triggers when a signal comes in
@@ -107,25 +132,22 @@ void onMqttMessage(int messageSize) {
     width = payload.toFloat();
     Serial.print("Ik sloeg de width op met waarde: ");
     Serial.println(width);
-  }
-  else if (topic == subtopic2) {
+  } else if (topic == subtopic2) {
     depth = payload.toFloat();
     Serial.print("Ik sloeg de depth op met waarde: ");
     Serial.println(depth);
-  }
-  else if (topic == subtopic3) {
+  } else if (topic == subtopic3) {
     resolution = payload.toFloat();
     Serial.print("Ik sloeg de resolution op met waarde: ");
     Serial.println(resolution);
-  }
-  else if (topic == subtopic4) {
+  } else if (topic == subtopic4) {
     status = payload.toInt();
     Serial.print("Ik sloeg de status op met waarde: ");
     Serial.println(status);
   }
 
   // if all the data is present (status is the last variable sent):
-  if(status == 1){
+  if (status == 1) {
     // calculate the steps
     Serial.println("Here we go!");
     steps = width * resolution;
@@ -151,24 +173,81 @@ void arduinoStepper(int steps, int lanes) {
     for (int l = 0; l < lanes; l++) {
 
       // do this every step
-      for(int s = 0; s < steps; s++){
-          // go forward for the even lanes
-          if((l % 2) == 0){
-            Serial.println("step forward");
-          }
-          // go backwards for the uneven lanes
-          if((l % 2) != 0){
-            Serial.println("step backward");
-          }
-          delay(motordelay);          
-      } // end of step loop
+      for (int s = 0; s < steps; s++) {
+        // go forward for the even lanes
+        if ((l % 2) == 0) {
+          motorcontrol("forwards");
+          delay(motordelay);
+        }
+        // go backwards for the uneven lanes
+        if ((l % 2) != 0) {
+          motorcontrol("backwards");
+          delay(motordelay);
+        }
+      }  // end of step loop
 
-      if(l != lanes-1){Serial.println("lane");}
-      delay(motordelay);
-    } // end of lane loop
+      if (l != lanes - 1) {
+        motorcontrol("left");
+        delay(motordelay);
+      }
+    }  // end of lane loop
 
-  // end this shit!
-  Serial.println("end");
-  status = 0;
-  } // end of while loop
+    // end this shit!
+    Serial.println("end");
+    status = 0;
+  }  // end of while loop
+}
+
+void motorcontrol(String direction) {
+  if (direction == "forwards") {
+    // Go forward
+    Serial.println("step forward");
+    digitalWrite(motor1pin1, HIGH);
+    digitalWrite(motor1pin2, LOW);
+    digitalWrite(motor2pin1, HIGH);
+    digitalWrite(motor2pin2, LOW);
+
+    delay(motordelay);
+
+    // Stop after delay
+    Serial.println("stop");
+    digitalWrite(motor1pin1, LOW);
+    digitalWrite(motor1pin2, LOW);
+    digitalWrite(motor2pin1, LOW);
+    digitalWrite(motor2pin2, LOW);
+  }
+
+  else if (direction == "backwards") {
+    Serial.println("step backward");
+    digitalWrite(motor1pin1, LOW);
+    digitalWrite(motor1pin2, HIGH);
+    digitalWrite(motor2pin1, LOW);
+    digitalWrite(motor2pin2, HIGH);
+
+    delay(motordelay);
+
+    // Stop after delay
+    Serial.println("stop");
+    digitalWrite(motor1pin1, LOW);
+    digitalWrite(motor1pin2, LOW);
+    digitalWrite(motor2pin1, LOW);
+    digitalWrite(motor2pin2, LOW);
+  }
+
+  else if (direction == "left") {
+    Serial.println("go left");
+    digitalWrite(motor1pin1, HIGH);
+    digitalWrite(motor1pin2, LOW);
+    digitalWrite(motor2pin1, LOW);
+    digitalWrite(motor2pin2, HIGH);
+
+    delay(motordelay);
+
+    // Stop after delay
+    Serial.println("stop");
+    digitalWrite(motor1pin1, LOW);
+    digitalWrite(motor1pin2, LOW);
+    digitalWrite(motor2pin1, LOW);
+    digitalWrite(motor2pin2, LOW);
+  }
 }
