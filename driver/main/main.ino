@@ -24,20 +24,19 @@ String subtopic2 = topic + "/depth";
 String subtopic3 = topic + "/resolution";
 String subtopic4 = topic + "/status";
 
-// declare variable for the delay
-unsigned long previousMillis = 0;
-
-// declare variable to story the incoming payload
+// declare variable to story the incoming MQTT payload
 String payload;
 
-// key room dimension variables
+// key room dimension variables & calculated values steps & lanes
 float width = 0;
 float depth = 0;
 float resolution = 0;
 int status = 0;
-
 int steps;
 int lanes;
+
+// motor delay (between steps)
+int motordelay = 1000;
 
 void setup() {
   Serial.begin(9600);
@@ -83,9 +82,6 @@ void loop() {
   // call poll() regularly to allow the library to send MQTT keep alives which
   // avoids being disconnected by the broker
   mqttClient.poll();
-
-  // delay
-  unsigned long currentMillis = millis();
 }
 
 // function that triggers when a signal comes in
@@ -128,8 +124,9 @@ void onMqttMessage(int messageSize) {
     Serial.println(status);
   }
 
-  // if all the data is present (status is the last variable sent), calculate the steps
+  // if all the data is present (status is the last variable sent):
   if(status == 1){
+    // calculate the steps
     Serial.println("Here we go!");
     steps = width * resolution;
     lanes = depth * resolution;
@@ -138,7 +135,40 @@ void onMqttMessage(int messageSize) {
     Serial.print(" steps and ");
     Serial.print(lanes);
     Serial.println(" lanes. What an adventure!");
-  }
 
-  // if everything us calculated, and the status is 1: trigger the stepper function  
+    // run the stepper function
+    arduinoStepper(steps, lanes);
+  }
+}
+
+// function to drive the Arduino based in the MQTT commandos calculated as an amount of steps and lanes
+void arduinoStepper(int steps, int lanes) {
+
+  // keep going as long as the status is 1
+  while (status == 1) {
+
+    // do this every lane
+    for (int l = 0; l < lanes; l++) {
+
+      // do this every step
+      for(int s = 0; s < steps; s++){
+          // go forward for the even lanes
+          if((l % 2) == 0){
+            Serial.println("step forward");
+          }
+          // go backwards for the uneven lanes
+          if((l % 2) != 0){
+            Serial.println("step backward");
+          }
+          delay(motordelay);          
+      } // end of step loop
+
+      if(l != lanes-1){Serial.println("lane");}
+      delay(motordelay);
+    } // end of lane loop
+
+  // end this shit!
+  Serial.println("end");
+  status = 0;
+  } // end of while loop
 }
