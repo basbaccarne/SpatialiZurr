@@ -24,7 +24,15 @@ client.publish(topic+'/width', '3.3', function (err) {});
 client.publish(topic+'/depth', '2', function (err) {});
 client.publish(topic+'/resolution', '1', function (err) {});
 client.publish(topic+'/status', '1', function (err) {});
+
 console.log('messages sent');
+
+setTimeout(function() {
+  console.log('Exitting');
+  process.exit(0);
+}, 400);
+
+
 
 // redundant: code to set up a web server
 
