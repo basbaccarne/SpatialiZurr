@@ -39,11 +39,11 @@ int lanes;
 int motordelay = 1000;
 
 // Motor 1: right-front & left-back are on unit 1 (speed controlled by enA) > IN1 & IN2 connected to digital 2 & 3
-int motor1pin1 = 2;
-int motor1pin2 = 3;
+int motor1pin1 = A0;
+int motor1pin2 = A1;
 // Motor 2: left-front & right-back are on unit 2 (speed controlled by enB) > IN3 & IN4 connected to digital 4 & 5
-int motor2pin1 = 4;
-int motor2pin2 = 5;
+int motor2pin1 = A2;
+int motor2pin2 = A3;
 // Speed controls are on digital 9 & digital 10
 int enA = 9;
 int enB = 10;
