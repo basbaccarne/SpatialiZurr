@@ -1,3 +1,4 @@
 
 driver/main/arduino_secrets.h
 .vscode/c_cpp_properties.json
+.vscode/arduino.json
