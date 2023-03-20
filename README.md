@@ -5,7 +5,7 @@ A scanning robot with a 360 cam to capture and map 3D/360 spaces for VR scenes
 ## Wheel base
 * We're using a laser cutted base on which we mount a tripod
 * **Motors**: 4x DC Motor with JST PH 2.0 connector - 25mm - 12V / 400RPM ([link](https://www.kiwi-electronics.com/nl/dc-motor-met-jst-ph-2-0-connector-25mm-12v-400rpm-10788))
-* **Motor mounts**: Clamping Mount Bottom Tapped - 25mm Bore ([link](https://www.active-robots.com/25mm-bore-bottom-tapped-clamping-mount-585716.html))
+* **Motor mounts**: Clamping Mount Bottom Tapped - 25mm Bore ([link](https://www.active-robots.com/25mm-bore-bottom-tapped-clamping-mount-585716.html)) // [additional CLamping Mounts](https://a360.co/42E32yH) 
 * **Wheels**: Mecanum Wheels 80MM 2 sets of 2 (L+R) (OT3482) ([link](https://www.otronic.nl/nl/mecanum-wiel-omnidirectioneel-wiel-80mm-a-geel-set.html))
 * **Wheel to motor connection**: small 3D printed hubs ([link to the 3D file](https://a360.co/3Y8MtHl))
 * **Driver**: Motor driver: 2x L298N
