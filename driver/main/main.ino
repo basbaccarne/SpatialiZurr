@@ -242,7 +242,7 @@ void motorcontrol(String direction) {
     digitalWrite(motor2pin1, LOW);
     digitalWrite(motor2pin2, HIGH);
 
-    delay(motordelay);
+    delay(motordelay*10);
 
     // Stop after delay
     Serial.println("stop");
