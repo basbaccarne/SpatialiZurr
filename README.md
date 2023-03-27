@@ -10,7 +10,7 @@ A scanning robot with a 360 cam to capture and map 3D/360 spaces for VR scenes
 * **Wheel to motor connection**: small 3D printed hubs ([link to the 3D file](https://a360.co/3Y8MtHl))
 * **Driver**: Motor driver: 2x L298N
 * **Power**: currently we're using a 12V adapter connected to the net > needs to be changed to battery pack
-* **Status**: rough prototype base laser cutted, components mounted, issues: (1) stabalize motor mount (2) wheel attachment and (3) wiring
+* **Status**: rough prototype base laser cutted, components mounted, issues: (1) stabalize motor mount (2) wheel attachment (3) LCD, (4) parametricize delays
 
 ## Driving the wheel base (Arduino)
 * We're using an Arduino with mechanum wheels to drive the wheel base
