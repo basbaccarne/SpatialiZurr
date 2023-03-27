@@ -36,7 +36,8 @@ int steps;
 int lanes;
 
 // motor delay (between steps)
-int motordelay = 1000;
+int motordelay = 100; // how long the motor runs
+int waitdelay = 1000; // how long the motor waits
 
 // Motor 1: right-front & left-back are on unit 1 (speed controlled by enA) > IN1 & IN2 connected to digital 2 & 3
 int motor1pin1 = A0;
@@ -177,18 +178,18 @@ void arduinoStepper(int steps, int lanes) {
         // go forward for the even lanes
         if ((l % 2) == 0) {
           motorcontrol("forwards");
-          delay(motordelay);
+          delay(waitdelay);
         }
         // go backwards for the uneven lanes
         if ((l % 2) != 0) {
           motorcontrol("backwards");
-          delay(motordelay);
+          delay(waitdelay);
         }
       }  // end of step loop
 
       if (l != lanes - 1) {
         motorcontrol("left");
-        delay(motordelay);
+        delay(waitdelay);
       }
     }  // end of lane loop
 
