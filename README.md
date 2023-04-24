@@ -4,11 +4,11 @@ A scanning robot with a 360 cam to capture and map 3D/360 spaces for VR scenes
 # Parts of physical thing (from bottom to top)
 ## Wheel base
 * We're using a laser cutted base on which we mount a tripod
-* **Motors**: 4x DC Motor with JST PH 2.0 connector - 25mm - 12V / 400RPM ([link](https://www.kiwi-electronics.com/nl/dc-motor-met-jst-ph-2-0-connector-25mm-12v-400rpm-10788))
-* **Motor mounts**: Clamping Mount Bottom Tapped - 25mm Bore ([link](https://www.active-robots.com/25mm-bore-bottom-tapped-clamping-mount-585716.html)) // [additional CLamping Mounts](https://a360.co/42E32yH) 
+* **Motors**: 4x DC Motor with JST PH 2.0 connector - 25mm - 12V / 400RPM ([link](https://www.kiwi-electronics.com/nl/dc-motor-met-jst-ph-2-0-connector-25mm-12v-400rpm-10788)) (remark: these are too weak for this weight
+* **Motor mounts**: [3D printed clamping mounts](https://a360.co/3KfTK3s) - 25mm motor diameter, M4 nuts & bolts (2 per motor)
 * **Wheels**: Mecanum Wheels 80MM 2 sets of 2 (L+R) (OT3482) ([link](https://www.otronic.nl/nl/mecanum-wiel-omnidirectioneel-wiel-80mm-a-geel-set.html))
 * **Wheel to motor connection**: small 3D printed hubs ([link to the 3D file](https://a360.co/3Y8MtHl))
-* **Driver**: Motor driver: 2x L298N
+* **Driver**: Motor driver: 4x L298N
 * **Power**: currently we're using a 12V adapter connected to the net > needs to be changed to battery pack
 * **Status**: rough prototype base laser cutted, components mounted, issues: (1) stabalize motor mount (2) wheel attachment (3) LCD, (4) parametricize delays
 
