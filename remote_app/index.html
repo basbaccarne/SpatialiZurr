@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>spatializurr Control Center</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/3.0.0/mqtt.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mui/material@5.11.0/dist/mui.min.css">
+    <link rel="stylesheet" href="stylesheet.css">
+
+</head>
+
+<body>
+    <div class="container">
+
+        <h1 class="title">Spatializurr Control center</h1>
+        <p class="subtitle">The space is yours. Start mapping it today! Enter room parameters below and start scanning. Have fun!</p>
+
+        <form id="mqttForm" onsubmit="sendMessage(); return false;">
+
+            <div class="input-field">
+                <label for="width">Width:</label>
+                <input type="text" id="width" name="width" required><br>
+            </div>
+        
+            <div class="input-field">
+                <label for="depth">Depth:</label>
+                <input type="text" id="depth" name="depth" required><br>
+            </div>
+
+            <div class="input-field">
+                <label for="resolution">Resolution:</label>
+                <input type="text" id="resolution" name="resolution" required><br>
+            </div>
+
+            <div class="input-field">
+                <label for="motortime">Motortime:</label>
+                <input type="text" id="motortime" name="motortime" required><br>
+            </div>
+
+            <button type="submit" class="submit-button">Let's go!</button>
+
+        </form>
+
+    </div>
+
+  <script>
+    // MQTT Broker details
+    var brokerUrl = "wss://spatializurr:fJWgFP2u8chjYKCB@spatializurr.cloud.shiftr.io";
+    var clientId = "Spatializurr Companion App";
+    var mainTopic = "robotcontrol";
+
+    // Create a MQTT client
+    var client = mqtt.connect(brokerUrl, { clientId: clientId });
+
+    // Called when the client is connected to the MQTT broker
+    client.on('connect', function () {
+      console.log('Connected to MQTT broker');
+    });
+
+    // Called when an error occurs
+    client.on('error', function (error) {
+      console.log('MQTT Error:', error);
+    });
+
+    // Function to send the message to the MQTT broker
+    function sendMessage() {
+      var width = document.getElementById('width').value;
+      var depth = document.getElementById('depth').value;
+      var resolution = document.getElementById('resolution').value;
+      var motortime = document.getElementById('motortime').value;
+
+      var topic1 = mainTopic + "/width";
+      var topic2 = mainTopic + "/depth";
+      var topic3 = mainTopic + "/resolution";
+      var topic4 = mainTopic + "/motortime";
+
+      client.publish(topic1, width);
+      client.publish(topic2, depth);
+      client.publish(topic3, resolution);
+      client.publish(topic4, motortime);
+
+      console.log('Message sent');
+    }
+  </script>
+</body>
+</html>
