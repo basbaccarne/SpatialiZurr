@@ -33,14 +33,19 @@
             </div>
 
             <div class="input-field">
-                <label for="resolution">Resolution:</label>
+                <label for="resolution">Resolution (steps = W of D * resolution:</label>
                 <input type="text" id="resolution" name="resolution" required><br>
             </div>
 
             <div class="input-field">
-                <label for="motortime">Motortime:</label>
+                <label for="motortime">Motortime (milliseconds per step, default = 100):</label>
                 <input type="text" id="motortime" name="motortime" required><br>
             </div>
+
+            <div class="input-field">
+              <label for="status">Status (use 1 to run):</label>
+              <input type="text" id="status" name="status" required><br>
+          </div>
 
             <button type="submit" class="submit-button">Let's go!</button>
 
@@ -73,16 +78,19 @@
       var depth = document.getElementById('depth').value;
       var resolution = document.getElementById('resolution').value;
       var motortime = document.getElementById('motortime').value;
+      var status = document.getElementById('status').value;
 
       var topic1 = mainTopic + "/width";
       var topic2 = mainTopic + "/depth";
       var topic3 = mainTopic + "/resolution";
       var topic4 = mainTopic + "/motortime";
+      var topic5 = mainTopic + "/status";
 
       client.publish(topic1, width);
       client.publish(topic2, depth);
       client.publish(topic3, resolution);
       client.publish(topic4, motortime);
+      client.publish(topic5, status);
 
       console.log('Message sent');
     }
