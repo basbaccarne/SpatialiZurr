@@ -23,6 +23,7 @@ String subtopic1 = topic + "/width";
 String subtopic2 = topic + "/depth";
 String subtopic3 = topic + "/resolution";
 String subtopic4 = topic + "/status";
+String subtopic5 = topic + "/motortime";
 
 // declare variable to story the incoming MQTT payload
 String payload;
@@ -32,6 +33,7 @@ float width = 0;
 float depth = 0;
 float resolution = 0;
 int status = 0;
+float motortime = 0;
 int steps;
 int lanes;
 
@@ -86,6 +88,7 @@ void setup() {
   mqttClient.subscribe(subtopic2);
   mqttClient.subscribe(subtopic3);
   mqttClient.subscribe(subtopic4);
+  mqttClient.subscribe(subtopic5);
 
   // set the message receive callback function:
   // Trigger the 'onMqttMessage' function when mqttClient.poll() (in the loop function) detects a message
@@ -145,12 +148,17 @@ void onMqttMessage(int messageSize) {
     status = payload.toInt();
     Serial.print("Ik sloeg de status op met waarde: ");
     Serial.println(status);
+  } else if (topic == subtopic5) {
+    motortime = payload.toInt();
+    Serial.print("Ik sloeg de motorspeed op met waarde: ");
+    Serial.println(motortime);
   }
 
   // if all the data is present (status is the last variable sent):
   if (status == 1) {
     // calculate the steps
     Serial.println("Here we go!");
+    Serial.println("#############################################");
     steps = width * resolution;
     lanes = depth * resolution;
     Serial.print("We will ride ");
@@ -177,18 +185,18 @@ void arduinoStepper(int steps, int lanes) {
       for (int s = 0; s < steps; s++) {
         // go forward for the even lanes
         if ((l % 2) == 0) {
-          motorcontrol("forwards");
+          motorcontrol("forwards", l, s);
           delay(waitdelay);
         }
         // go backwards for the uneven lanes
         if ((l % 2) != 0) {
-          motorcontrol("backwards");
+          motorcontrol("backwards", l, s);
           delay(waitdelay);
         }
       }  // end of step loop
 
       if (l != lanes - 1) {
-        motorcontrol("left");
+        motorcontrol("left", 0, 0);
         delay(waitdelay);
       }
     }  // end of lane loop
@@ -199,16 +207,19 @@ void arduinoStepper(int steps, int lanes) {
   }  // end of while loop
 }
 
-void motorcontrol(String direction) {
+void motorcontrol(String direction, int lane, int step) {
   if (direction == "forwards") {
     // Go forward
-    Serial.println("step forward");
+    Serial.print("Lane ");
+    Serial.print(lane);
+    Serial.print(" | Step ");
+    Serial.println(step);
     digitalWrite(motor1pin1, HIGH);
     digitalWrite(motor1pin2, LOW);
     digitalWrite(motor2pin1, HIGH);
     digitalWrite(motor2pin2, LOW);
 
-    delay(motordelay);
+    delay(motortime);
 
     // Stop after delay
     Serial.println("stop");
@@ -219,13 +230,16 @@ void motorcontrol(String direction) {
   }
 
   else if (direction == "backwards") {
-    Serial.println("step backward");
+    Serial.print("Lane ");
+    Serial.print(lane);
+    Serial.print(" | Step ");
+    Serial.println(step);
     digitalWrite(motor1pin1, LOW);
     digitalWrite(motor1pin2, HIGH);
     digitalWrite(motor2pin1, LOW);
     digitalWrite(motor2pin2, HIGH);
 
-    delay(motordelay);
+    delay(motortime);
 
     // Stop after delay
     Serial.println("stop");
@@ -236,13 +250,13 @@ void motorcontrol(String direction) {
   }
 
   else if (direction == "left") {
-    Serial.println("go left");
+    Serial.println("lane switch!");
     digitalWrite(motor1pin1, HIGH);
     digitalWrite(motor1pin2, LOW);
     digitalWrite(motor2pin1, LOW);
     digitalWrite(motor2pin2, HIGH);
 
-    delay(motordelay*10);
+    delay(motortime*10);
 
     // Stop after delay
     Serial.println("stop");
