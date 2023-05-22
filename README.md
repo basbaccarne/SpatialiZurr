@@ -1,5 +1,6 @@
-# VR_space_scanner
+# Spatializurr: The VR space scanner
 This is the GitHub repo for the Spatializurr project.
+
 Spatializurr is a scanning robot with a 360 cam to capture and map 3D/360 spaces for VR scenes.
 It uses an Arduino, a Raspberry Pi, a Ricoh Teta 360 camera and Unity to create a VR experience.
 
@@ -49,7 +50,7 @@ Below you can find a description of the different parts of the project.
 * Resource: [renaming photos in python](https://www.youtube.com/watch?v=4HU5DiGD4lY)
 * **Status**: works on sample data and preset variables
 
-## Stiching 360* images to character controller in Unity (Unity)
+## Stiching 360° images to character controller in Unity (Unity)
 * First, we attach a sphere to the character controller 
 * Next, we're calculating and remapping the coordinates of the character controller (where the head set is)
 * Finally, the coodinate loads the correspinding 360* picture and uses this as a mesh inside the sphere
