@@ -41,15 +41,25 @@ int lanes;
 int motordelay = 100; // how long the motor runs
 int waitdelay = 1000; // how long the motor waits
 
-// Motor 1: right-front & left-back are on unit 1 (speed controlled by enA) > IN1 & IN2 connected to digital 2 & 3
+// Motor 1
 int motor1pin1 = A0;
 int motor1pin2 = A1;
-// Motor 2: left-front & right-back are on unit 2 (speed controlled by enB) > IN3 & IN4 connected to digital 4 & 5
+// Motor 2
 int motor2pin1 = A2;
 int motor2pin2 = A3;
 // Speed controls are on digital 9 & digital 10
 int enA = 9;
 int enB = 10;
+
+// Motor 3
+int motor3pin1 = A4;
+int motor3pin2 = A5;
+// Motor 4
+int motor4pin1 = A6;
+int motor4pin2 = A7;
+// Speed controls are on digital 9 & digital 10
+int enA2 = 5;
+int enB2 = 6;
 
 // Variables to control delay & speed
 int speed = 255;  // 0 = off and 255 = max speed
@@ -101,6 +111,12 @@ void setup() {
   pinMode(motor2pin2, OUTPUT);
   pinMode(enA, OUTPUT);
   pinMode(enB, OUTPUT);
+  pinMode(motor3pin1, OUTPUT);
+  pinMode(motor3pin2, OUTPUT);
+  pinMode(motor4pin1, OUTPUT);
+  pinMode(motor4pin2, OUTPUT);
+  pinMode(enA2, OUTPUT);
+  pinMode(enB2, OUTPUT);
 }
 
 void loop() {
@@ -111,6 +127,8 @@ void loop() {
   // set the speed of the motors
   analogWrite(enA, speed);
   analogWrite(enB, speed);
+  analogWrite(enA2, speed);
+  analogWrite(enB2, speed);
 }
 
 // function that triggers when a signal comes in
@@ -218,6 +236,10 @@ void motorcontrol(String direction, int lane, int step) {
     digitalWrite(motor1pin2, LOW);
     digitalWrite(motor2pin1, HIGH);
     digitalWrite(motor2pin2, LOW);
+    digitalWrite(motor3pin1, HIGH);
+    digitalWrite(motor3pin2, LOW);
+    digitalWrite(motor4pin1, HIGH);
+    digitalWrite(motor4pin2, LOW);
 
     delay(motortime);
 
@@ -227,6 +249,10 @@ void motorcontrol(String direction, int lane, int step) {
     digitalWrite(motor1pin2, LOW);
     digitalWrite(motor2pin1, LOW);
     digitalWrite(motor2pin2, LOW);
+    digitalWrite(motor3pin1, LOW);
+    digitalWrite(motor3pin2, LOW);
+    digitalWrite(motor4pin1, LOW);
+    digitalWrite(motor4pin2, LOW);
   }
 
   else if (direction == "backwards") {
@@ -238,6 +264,10 @@ void motorcontrol(String direction, int lane, int step) {
     digitalWrite(motor1pin2, HIGH);
     digitalWrite(motor2pin1, LOW);
     digitalWrite(motor2pin2, HIGH);
+    digitalWrite(motor3pin1, LOW);
+    digitalWrite(motor3pin2, HIGH);
+    digitalWrite(motor4pin1, LOW);
+    digitalWrite(motor4pin2, HIGH);
 
     delay(motortime);
 
@@ -247,6 +277,10 @@ void motorcontrol(String direction, int lane, int step) {
     digitalWrite(motor1pin2, LOW);
     digitalWrite(motor2pin1, LOW);
     digitalWrite(motor2pin2, LOW);
+    digitalWrite(motor3pin1, LOW);
+    digitalWrite(motor3pin2, LOW);
+    digitalWrite(motor4pin1, LOW);
+    digitalWrite(motor4pin2, LOW);
   }
 
   else if (direction == "left") {
@@ -255,6 +289,10 @@ void motorcontrol(String direction, int lane, int step) {
     digitalWrite(motor1pin2, LOW);
     digitalWrite(motor2pin1, LOW);
     digitalWrite(motor2pin2, HIGH);
+    digitalWrite(motor3pin1, LOW);
+    digitalWrite(motor3pin2, HIGH);
+    digitalWrite(motor4pin1, HIGH);
+    digitalWrite(motor4pin2, LOW);
 
     delay(motortime*10);
 
@@ -264,5 +302,9 @@ void motorcontrol(String direction, int lane, int step) {
     digitalWrite(motor1pin2, LOW);
     digitalWrite(motor2pin1, LOW);
     digitalWrite(motor2pin2, LOW);
+    digitalWrite(motor3pin1, LOW);
+    digitalWrite(motor3pin2, LOW);
+    digitalWrite(motor4pin1, LOW);
+    digitalWrite(motor4pin2, LOW);
   }
 }
