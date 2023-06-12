@@ -47,7 +47,7 @@ int motor1pin2 = A1;
 // Motor 2
 int motor2pin1 = A2;
 int motor2pin2 = A3;
-// Speed controls are on digital 9 & digital 10
+// Speed controls board 1
 int enA = 9;
 int enB = 10;
 
@@ -57,7 +57,7 @@ int motor3pin2 = A5;
 // Motor 4
 int motor4pin1 = A6;
 int motor4pin2 = A7;
-// Speed controls are on digital 9 & digital 10
+// Speed controls board 2
 int enA2 = 5;
 int enB2 = 6;
 
