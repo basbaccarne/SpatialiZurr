@@ -23,6 +23,7 @@ Below you can find a description of the different parts of the project.
 * The Aruino receives width, depth, resolution, motorspeed and status over MQTT
 * This is used to calculate the required steps and drive the motor
 * [This is the Arduino script](/driver/main/)
+* info on the CNC shield cna be retreived here: https://courses.ideate.cmu.edu/16-376/s2020/ref/text/hardware/cnc-shield.html
 * **Status**: optimization options: status LCD, audio feedback, position tacking (e.g. using a mouse or rotary angle sensor), communicate status back to the MQTT broker
 
 ## Sending room parameters to the Arduino (MQTT)
