@@ -9,6 +9,10 @@ char pass[] = SECRET_PASS;
 char mqttUsername[] = SECRET_MQTT_USER;
 char mqttPass[] = SECRET_MQTT_PASS;
 
+// set sensorpins for motor action! (D2 & 3)
+#define SENSORPIN1 2
+#define SENSORPIN2 3
+
 // define clients
 WiFiClient wifiClient;
 MqttClient mqttClient(wifiClient);
@@ -213,7 +217,7 @@ void motorcontrol(String direction, int lane, int step) {
 
     // 0;0 = stop
     digitalWrite(SENSORPIN1,0);
-    digitalWrite(SENSORPIN2,0)
+    digitalWrite(SENSORPIN2,0);
 
   }
 
@@ -223,12 +227,12 @@ void motorcontrol(String direction, int lane, int step) {
 
     // 1;1 = lane change
     digitalWrite(SENSORPIN1,1);
-    digitalWrite(SENSORPIN2,1)
+    digitalWrite(SENSORPIN2,1);
 
     Serial.println("stop");
 
     // 0;0 = stop
     digitalWrite(SENSORPIN1,0);
-    digitalWrite(SENSORPIN2,0)
+    digitalWrite(SENSORPIN2,0);
   }
 }
