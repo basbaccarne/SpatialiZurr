@@ -48,6 +48,10 @@ int waitdelay = 1000; // how long the motor waits
 void setup() {
   Serial.begin(9600);
 
+  // let's get those digitals running
+  pinMode(SENSORPIN1, OUTPUT);
+  pinMode(SENSORPIN2, OUTPUT);
+
   // connect to WiFi
   Serial.print("Attempting to connect to SSID: ");
   Serial.println(ssid);
@@ -189,16 +193,16 @@ void motorcontrol(String direction, int lane, int step) {
     Serial.println(step);
 
     // 1;0 = forward
-    digitalWrite(SENSORPIN1,1);
-    digitalWrite(SENSORPIN2,0);
+    digitalWrite(SENSORPIN1, 1);
+    digitalWrite(SENSORPIN2, 0);
 
     delay(motortime);
 
     Serial.println("stop");
     
     // 0;0 = stop
-    digitalWrite(SENSORPIN1,0);
-    digitalWrite(SENSORPIN2,0);
+    digitalWrite(SENSORPIN1, 0);
+    digitalWrite(SENSORPIN2, 0);
   }
 
   else if (direction == "backwards") {
@@ -207,9 +211,9 @@ void motorcontrol(String direction, int lane, int step) {
     Serial.print(" | Step ");
     Serial.println(step);
 
-    // 0;1 = forward
-    digitalWrite(SENSORPIN1,0);
-    digitalWrite(SENSORPIN2,1);
+    // 0;1 = backwards
+    digitalWrite(SENSORPIN1, 0);
+    digitalWrite(SENSORPIN2, 1);
 
     delay(motortime);
 
@@ -223,11 +227,12 @@ void motorcontrol(String direction, int lane, int step) {
 
   else if (direction == "left") {
     Serial.println("lane switch!");
-    delay(motortime*10);
 
     // 1;1 = lane change
     digitalWrite(SENSORPIN1,1);
     digitalWrite(SENSORPIN2,1);
+    
+    delay(motortime*10);
 
     Serial.println("stop");
 
