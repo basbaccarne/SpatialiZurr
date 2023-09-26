@@ -9,21 +9,21 @@ Below you can find a description of the different parts of the project.
 # Parts of physical thing (from bottom to top)
 ## Wheel base
 * We're using a **laser cutted base** on which we mount a tripod
-* **Motors**: 4x DC Motor with JST PH 2.0 connector - 25mm - 12V / 400RPM ([link](https://www.kiwi-electronics.com/nl/dc-motor-met-jst-ph-2-0-connector-25mm-12v-400rpm-10788)) (remark: these are probably too weak for this weight > we need to find stronger ones)
-* **Motor mounts**: [3D printed clamping mounts](https://a360.co/3KfTK3s) - 25mm motor diameter, M4 nuts & bolts (2 per motor)
-* **Wheels**: Mecanum Wheels 80MM 2 sets of 2 (L+R) (OT3482) ([link](https://www.otronic.nl/nl/mecanum-wiel-omnidirectioneel-wiel-80mm-a-geel-set.html))
-* **Wheel to motor connection**: small 3D printed hubs ([link to the 3D file](https://a360.co/3OxBTZh))
-* **Driver**: Motor driver: 4x L298N
-* **Power**: currently we're using a 12V adapter connected to the net > needs to be changed to battery pack
-* **Status**: rough prototype base laser cutted, components mounted, issues: (1) stabilize motor mount (2) wheel attachment (3) LCD
+* **Motors**: 4x nema 17 stepper motors (earlier test with less powerful motors failed)
+* **Motor mounts**: [nema 17 mounting brackets](https://www.hobbyelectronica.nl/product/bracket-nema-17/)
+* **Wheels**: Mecanum Wheels 80MM 2 sets of 2 (L+R) (OT3482) ([link](https://www.otronic.nl/nl/mecanum-wiel-omnidirectioneel-wiel-80mm-a-geel-set.html)) (might be too small, which would mean they need to be replaced with 3D printed DIY wheels)
+* **Wheel to motor connection**: small 3D printed hubs ([link to the 3D file](https://a360.co/3ZwzRfF))
+* **Driver**: Motor driver: [Arduino CNC shield](https://www.hobbyelectronica.nl/product/arduino-cnc-shield/)
+* **Power**: currently we're using a heavy adapter connected to the net > needs to be changed to battery pack
+* **Status**: rough prototype base laser cutted, components mounted, issues: (1) motor to wheel connection
 
 ## Driving the wheel base (Arduino)
 * We're using an Arduino with mechanum wheels to drive the wheel base
 * The wheel base moves in increments and lines to 'sample' the space
 * The Aruino receives width, depth, resolution, motorspeed and status over MQTT
 * This is used to calculate the required steps and drive the motor
-* [This is the Arduino script](/driver/main/)
-* info on the CNC shield cna be retreived here: https://courses.ideate.cmu.edu/16-376/s2020/ref/text/hardware/cnc-shield.html
+* [This is the Arduino script](/driver/new_main/)
+* info on the CNC shield cna be retreived [here](https://courses.ideate.cmu.edu/16-376/s2020/ref/text/hardware/cnc-shield.html)
 * **Status**: optimization options: status LCD, audio feedback, position tacking (e.g. using a mouse or rotary angle sensor), communicate status back to the MQTT broker
 
 ## Sending room parameters to the Arduino (MQTT)
