@@ -1,13 +1,29 @@
-// CNC Shield Stepper  Control Demo
-// Superb Tech
-// www.youtube.com/superbtech
+// This script does x steps forward then y steps sideways then x back
 
+// step distance (in cm)
+int step_distance = 5;
+
+// steps to take
+int steps = 4;
+
+// lane distance (in cm)
+int lane_dist = 5;
+
+// z = delay to take a picture (in milisecond)
+int picture_delay = 1000;
+
+// speed of the motor (in miliseconds)
+int speed  = 500;
+
+// setting the sensor pins for nano input (read x & y)
+// and set variables for the analog reads
 int sensorPin1 = A4;
-int sensorPin2 = A5;   // select the input pin for the potentiometer
+int sensorPin2 = A5;
 int sensorValue1 = 0;
 int sensorValue2 = 0;
-int ledPin = 13;  // variable to store the value coming from the sensor
 
+// setting the motor pins
+// motors: w, x, y & z
 const int StepW = 12;
 const int DirW = 13;
 const int StepX = 2;
@@ -17,13 +33,11 @@ const int DirY = 6;
 const int StepZ = 4;
 const int DirZ = 7;
 
-const int step_distance = 200;
-
 void setup() {
-  // declare the ledPin as an OUTPUT:
-  pinMode(ledPin, OUTPUT);
+  // declare the ledPin as output
   Serial.begin(9600);
 
+  // set the motor pins as outputs
   pinMode(StepW, OUTPUT);
   pinMode(DirW, OUTPUT);
   pinMode(StepX,OUTPUT);
@@ -35,143 +49,60 @@ void setup() {
 }
 
 void loop() {
-  // read the value from the sensor:
-  sensorValue1 = analogRead(sensorPin1);
-  sensorValue2 = analogRead(sensorPin2);
-  Serial.print("pin1 ");
-  Serial.print(sensorValue1);
-  Serial.print( "; pin2 ");
-  Serial.println( sensorValue2);
+  // read the value from the sensor: (temp diable)
+  // sensorValue1 = analogRead(sensorPin1);
+  // sensorValue2 = analogRead(sensorPin2);
+  // Serial.print("pin1 ");
+  // Serial.print(sensorValue1);
+  // Serial.print( "; pin2 ");
+  // Serial.println( sensorValue2);
 
-
-
-  // fwd
+  // go forward (set the direction of each wheel)
   digitalWrite(DirW, HIGH);
   digitalWrite(DirX, LOW); 
-  digitalWrite(DirY, HIGH);
-  digitalWrite(DirZ, LOW);
-
-   for(int x = 0; x<step_distance; x++) 
-    { // loop for 200 steps
-    digitalWrite(StepW,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepW,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepX,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepX,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepY,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepY,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepZ,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepZ,LOW); 
-    delayMicroseconds(500);
-    }
-  
-  // stop
-  delay(1000);
-
-  // sideways
-  digitalWrite(DirW, LOW);
-  digitalWrite(DirX, LOW); 
-  digitalWrite(DirY, HIGH);
-  digitalWrite(DirZ, HIGH);
-
-   for(int x = 0; x<step_distance; x++) 
-    { // loop for 200 steps
-    digitalWrite(StepW,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepW,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepX,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepX,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepY,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepY,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepZ,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepZ,LOW); 
-    delayMicroseconds(500);
-    }
-  
-  // stop
-  delay(1000);
-
-  // backwards
-  digitalWrite(DirW, LOW);
-  digitalWrite(DirX, HIGH); 
   digitalWrite(DirY, LOW);
   digitalWrite(DirZ, HIGH);
 
-   for(int x = 0; x<step_distance; x++) 
-    { // loop for 200 steps
-    digitalWrite(StepW,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepW,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepX,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepX,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepY,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepY,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepZ,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepZ,LOW); 
-    delayMicroseconds(500);
+  // drive the motor x steps
+  for(int y = 0; y < steps; y++) 
+    {  
+      drive(speed, step_distance);
+      delay(picture_delay);
     }
-  
-  // stop
-  delay(1000);
 
-  // sideways other
-  digitalWrite(DirW, HIGH);
+  // go backwards (set the direction of each wheel)
+  digitalWrite(DirW, LOW);
   digitalWrite(DirX, HIGH); 
-  digitalWrite(DirY, LOW);
+  digitalWrite(DirY, HIGH);
   digitalWrite(DirZ, LOW);
-
-   for(int x = 0; x<step_distance*2; x++) 
-    { // loop for 200 steps
-    digitalWrite(StepW,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepW,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepX,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepX,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepY,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepY,LOW); 
-    delayMicroseconds(500);
-
-    digitalWrite(StepZ,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepZ,LOW); 
-    delayMicroseconds(500);
-    }
   
-  // stop
-  delay(1000);
+  // drive the motor x steps
+  for(int y = 0; y < steps; y++){
+      drive(speed, step_distance);
+      delay(picture_delay);
+  }
+  
 }
 
+// this function drives the motors for a given distance and speed
+void drive(int speed, int distance) {
+  // go through the steps, defined as distance
+  // the speed is the delay between the steps
+  for(int x = 0; x < distance * 100; x++) 
+    { 
+    digitalWrite(StepW,HIGH);
+    digitalWrite(StepX,HIGH);
+    digitalWrite(StepY,HIGH);
+    digitalWrite(StepZ,HIGH);
 
+    delayMicroseconds(speed);
+
+    digitalWrite(StepW,LOW); 
+    digitalWrite(StepX,LOW); 
+    digitalWrite(StepY,LOW); 
+    digitalWrite(StepZ,LOW); 
+
+    delayMicroseconds(speed);
+
+    }
+}
