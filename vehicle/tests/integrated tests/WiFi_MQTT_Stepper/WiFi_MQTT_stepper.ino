@@ -1,3 +1,8 @@
+// This is the first integrated test that combines the MQTT and the motor control
+// The script connects to WiFi, then to MQTT, waits for a message and then drives the motors
+// The motors in this test are stepper motors
+// The stepper motors were not strong enough to drive the vehicle
+
 // load libraries voor wifi en MQTT
 #include <ArduinoMqttClient.h>
 #include <WiFiNINA.h>
