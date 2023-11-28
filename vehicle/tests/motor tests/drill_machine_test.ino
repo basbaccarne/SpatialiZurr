@@ -1,5 +1,9 @@
 // this is a test script to test the hacked drill machine motors
 // test 1: basic driving the motor
+// We bought 4 drill machines & tool them apart
+// The drill machines are powerd with a battery that goes through a MOSFET (irfb3607) and drives a motor
+// The motor is connected to a planetaty gearbox
+// reference (e.g. pinout): https://itp.nyu.edu/physcomp/labs/motors-and-transistors/using-a-transistor-to-control-high-current-loads-with-an-arduino/
 
 const int transistorPin = 3;
  
